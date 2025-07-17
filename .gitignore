@@ -1,0 +1,13 @@
+# Arduino/Embedded
+*.ino
+.pio
+build/
+.vscode/
+__pycache__/
+*.bin
+*.elf
+*.hex
+
+# Mac/Windows System Files
+.DS_Store
+Thumbs.db
