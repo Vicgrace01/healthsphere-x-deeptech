@@ -1,28 +1,74 @@
-# HealthSphere X - AI Model
+# HealthSphere X AI Models
 
-This folder contains the AI-driven logic used to simulate and predict vital signs based on body temperature and contextual patient data.
+The AI system powering **HealthSphere X** is designed around a three-pronged approach to community-centered healthcare:
 
-## 💡 Purpose
-The goal is to provide proactive health assessment and triage by estimating:
-- Blood Pressure (BP)
-- Heart Rate (HR)
-- Oxygen Saturation (SpO₂)
-- Risk Level (Normal, Mild Fever, Severe, Emergency)
+> **Predict. Prevent. Prescribe.**
 
-## 🔧 How it Works
-- Input: Temperature value (°C)
-- Output: Predicted vital signs and alert level
-- Logic: Based on a mix of rule-based estimation and future AI extensibility
-- Integration: Works on-device with ESP32-CAM or cloud-based via Firebase
+---
 
-## 🧪 Files
-- `vitals-predictor.py`: Rule-based prediction script
-- `training-data.csv`: Simulated input data
-- `model-output-samples.txt`: Sample inputs and prediction outputs
-- `ai-logic-diagram.png`: Optional diagram showing prediction flow (add if needed)
+## 🔬 1. Predict
+HealthSphere X uses AI to infer vital signs (SpO₂, heart rate, blood pressure) from a simple temperature reading. This enables low-cost health monitoring even when only a digital thermometer is available.
 
-## 📈 Future Work
-- Train with real patient datasets
-- Improve prediction with TinyML models
-- Integrate feedback from medical professionals
+- Model: `temperature-vitals-model.ipynb`
+- Inputs: Body temperature (in °C), basic patient data (age, gender, history)
+- Outputs: Predicted vitals (SpO₂, Heart Rate, BP)
+
+Additionally, AI analyzes temperature trends to **predict potential illnesses** like:
+- Fever & Malaria
+- Hypothermia
+- COVID-19 patterns
+- Dengue-like symptoms
+
+- Model: `condition-predictor-model.ipynb`
+
+---
+
+## 🚨 2. Prevent
+Using historical health patterns and thresholds, the models flag early warning signs:
+
+- Fever trend detection
+- Dangerous vitals warning
+- Personalized risk profiles (based on age, history, etc.)
+
+This enables preventive steps before an emergency arises.
+
+---
+
+## 💊 3. Prescribe
+Our AI module gives basic **prescription suggestions** when a doctor isn’t nearby:
+
+- Mild Fever → Paracetamol + Rest
+- Severe Fever → See doctor ASAP
+- Low SpO₂ → Urgent medical attention
+- Cold + Hypothermia → Apply warmth, hydrate
+
+- Model: `prescription-ai-module.ipynb`
+
+⚠️ Note: These are **suggestions**, not replacements for clinical diagnosis.
+
+---
+
+## 📁 Files Included
+
+| Filename | Description |
+|----------|-------------|
+| `temperature-vitals-model.ipynb` | Predicts vitals (HR, BP, SpO₂) from temperature |
+| `condition-predictor-model.ipynb` | Predicts illnesses based on temp patterns |
+| `prescription-ai-module.ipynb` | Gives basic suggestions for home care or escalation |
+| `readme.md` | This file |
+
+---
+
+## 🧠 Dataset
+
+We used a combination of public medical references, anonymized simulations, and medically informed assumptions for training. Real data collection will improve performance over time.
+
+---
+
+## ✅ Future Improvements
+- Integrate real patient history
+- Personalize models based on region or demographics
+- Expand to handle symptoms beyond temperature
+
+---
 
