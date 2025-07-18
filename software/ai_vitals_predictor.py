@@ -1,7 +1,7 @@
 # ai_vitals_predictor.py
 
-import random
 import json
+from typing import List, Dict, Any
 
 # Simulated dataset (as list of mock patient cases)
 simulated_cases = [
@@ -12,8 +12,23 @@ simulated_cases = [
     {"temperature": 37.8, "age": 35, "history": "none"},
 ]
 
-# Predict health condition from temperature and history
-def predict_condition(temperature, age=30, history="none"):
+def predict_condition(
+    temperature: float,
+    age: int = 30,
+    history: str = "none"
+) -> Dict[str, Any]:
+    """
+    Predicts health condition based on temperature, age, and medical history.
+
+    Args:
+        temperature (float): Body temperature in Celsius.
+        age (int, optional): Age of the patient. Default is 30.
+        history (str, optional): Medical history. Default is "none".
+
+    Returns:
+        dict: Prediction result including condition, risk factor, alert level, and recommendation.
+    """
+    # Initial status assignment based on temperature
     if temperature < 36.0:
         status = "Hypothermia"
         risk = "Low circulation or cold exposure"
@@ -35,37 +50,52 @@ def predict_condition(temperature, age=30, history="none"):
         risk = "Possible severe infection or heatstroke"
         alert = "Emergency"
 
-    # Modify based on history
-    if history in ["diabetes", "hypertension", "asthma"] and temperature > 38:
+    # Increase alert for high-risk histories
+    high_risk_histories = {"diabetes", "hypertension", "asthma"}
+    if history.lower() in high_risk_histories and temperature > 38:
         alert = "Emergency"
         risk += " | Underlying condition detected"
 
-    # Recommendations
-    recommendation = "Stay hydrated and rest."
-    if alert == "Concern":
-        recommendation = "Use fever reducer; monitor closely."
-    elif alert == "Emergency":
-        recommendation = "Seek medical attention immediately."
+    # Recommendations by alert level
+    recommendations = {
+        "Safe": "Maintain healthy habits.",
+        "Moderate": "Warm up and monitor temperature.",
+        "Caution": "Stay hydrated and rest.",
+        "Concern": "Use fever reducer; monitor closely.",
+        "Emergency": "Seek medical attention immediately."
+    }
+    recommendation = recommendations.get(alert, "Consult a healthcare provider.")
 
     return {
         "temperature": temperature,
+        "age": age,
+        "history": history,
         "condition": status,
         "risk_factor": risk,
         "alert_level": alert,
         "recommendation": recommendation
     }
 
-# Test the predictor on simulated data
-def test_predictions():
-    results = []
-    for case in simulated_cases:
-        prediction = predict_condition(
-            case["temperature"],
-            case["age"],
-            case["history"]
+def test_predictions(cases: List[Dict[str, Any]] = None) -> List[Dict[str, Any]]:
+    """
+    Runs the predictor on a list of cases and returns the predictions.
+
+    Args:
+        cases (list, optional): List of patient case dicts. Defaults to simulated_cases.
+
+    Returns:
+        list: List of prediction results.
+    """
+    if cases is None:
+        cases = simulated_cases
+    return [
+        predict_condition(
+            case.get("temperature"),
+            case.get("age", 30),
+            case.get("history", "none")
         )
-        results.append(prediction)
-    return results
+        for case in cases
+    ]
 
 if __name__ == "__main__":
     print(json.dumps(test_predictions(), indent=2))
