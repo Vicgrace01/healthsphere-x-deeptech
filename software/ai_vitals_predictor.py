@@ -1,58 +1,71 @@
 # ai_vitals_predictor.py
 
-"""
-Simulated AI Model for Predicting Vital Signs from Temperature
-Author: HealthSphere X Team
-Date: 2025
-"""
-
 import random
 import json
 
-def predict_vitals(body_temp, age=None, gender=None, prior_conditions=None):
-    """
-    Simulate AI prediction of vitals from temperature and optional metadata.
-    """
-    # Default ranges (mock logic)
-    heart_rate = random.randint(70, 100)
-    spo2 = random.randint(95, 99)
-    systolic = random.randint(110, 130)
-    diastolic = random.randint(70, 90)
-    
-    # Simulated logic based on temperature
-    if body_temp >= 38.0:
-        heart_rate += 10
-        spo2 -= 2
-        systolic += 5
-        diastolic += 3
-    elif body_temp <= 36.0:
-        heart_rate -= 5
-        spo2 += 1
-        systolic -= 5
-        diastolic -= 3
+# Simulated dataset (as list of mock patient cases)
+simulated_cases = [
+    {"temperature": 36.5, "age": 25, "history": "none"},
+    {"temperature": 38.3, "age": 70, "history": "hypertension"},
+    {"temperature": 39.5, "age": 10, "history": "asthma"},
+    {"temperature": 40.1, "age": 55, "history": "diabetes"},
+    {"temperature": 37.8, "age": 35, "history": "none"},
+]
 
-    # Adjustments based on age or conditions (simulated logic)
-    if age and age > 60:
-        systolic += 10
-        diastolic += 5
+# Predict health condition from temperature and history
+def predict_condition(temperature, age=30, history="none"):
+    if temperature < 36.0:
+        status = "Hypothermia"
+        risk = "Low circulation or cold exposure"
+        alert = "Moderate"
+    elif 36.0 <= temperature <= 37.5:
+        status = "Normal"
+        risk = "None"
+        alert = "Safe"
+    elif 37.6 <= temperature <= 38.4:
+        status = "Low-grade Fever"
+        risk = "May indicate mild infection"
+        alert = "Caution"
+    elif 38.5 <= temperature <= 39.5:
+        status = "High Fever"
+        risk = "Likely infection or flu"
+        alert = "Concern"
+    else:
+        status = "Critical Fever"
+        risk = "Possible severe infection or heatstroke"
+        alert = "Emergency"
 
-    if prior_conditions and "hypertension" in prior_conditions.lower():
-        systolic += 15
-        diastolic += 10
+    # Modify based on history
+    if history in ["diabetes", "hypertension", "asthma"] and temperature > 38:
+        alert = "Emergency"
+        risk += " | Underlying condition detected"
 
-    result = {
-        "Temperature": body_temp,
-        "Predicted_Heart_Rate": heart_rate,
-        "Predicted_SPO2": spo2,
-        "Predicted_BP": f"{systolic}/{diastolic}"
+    # Recommendations
+    recommendation = "Stay hydrated and rest."
+    if alert == "Concern":
+        recommendation = "Use fever reducer; monitor closely."
+    elif alert == "Emergency":
+        recommendation = "Seek medical attention immediately."
+
+    return {
+        "temperature": temperature,
+        "condition": status,
+        "risk_factor": risk,
+        "alert_level": alert,
+        "recommendation": recommendation
     }
 
-    return json.dumps(result, indent=4)
+# Test the predictor on simulated data
+def test_predictions():
+    results = []
+    for case in simulated_cases:
+        prediction = predict_condition(
+            case["temperature"],
+            case["age"],
+            case["history"]
+        )
+        results.append(prediction)
+    return results
 
-# Example usage
 if __name__ == "__main__":
-    temp = 38.5
-    prediction = predict_vitals(temp, age=65, prior_conditions="Hypertension")
-    print("Simulated AI Prediction from Temperature Input:")
-    print(prediction)
-
+    print(json.dumps(test_predictions(), indent=2))
