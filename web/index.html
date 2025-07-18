@@ -7,39 +7,79 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>HealthSphere X</h1>
-      <p>Your AI Doctor & Emergency Assistant</p>
-    </header>
+  <header>
+    <h1>HealthSphere X</h1>
+    <p>AI-powered health insights for smart prevention, non-invasive diagnostics, and emergency response.</p>
+  </header>
 
-    <section class="vitals-section">
-      <h2>Live Vitals</h2>
-      <div class="vitals">
-        <div class="card"><strong>Body Temp:</strong> <span id="temp">-- °C</span></div>
-        <div class="card"><strong>Heart Rate:</strong> <span id="heart">-- bpm</span></div>
-        <div class="card"><strong>SpO2:</strong> <span id="spo2">-- %</span></div>
-        <div class="card"><strong>Blood Pressure:</strong> <span id="bp">-- mmHg</span></div>
+  <main>
+    <section id="vitals">
+      <h2>Live Vitals Monitor</h2>
+      <div class="vital-grid">
+        <div class="vital-card">
+          <h3>Temperature</h3>
+          <p id="temp">-- °C</p>
+        </div>
+        <div class="vital-card">
+          <h3>Heart Rate</h3>
+          <p id="heart">-- bpm</p>
+        </div>
+        <div class="vital-card">
+          <h3>Blood Pressure</h3>
+          <p id="bp">-- / -- mmHg</p>
+        </div>
+        <div class="vital-card">
+          <h3>Oxygen Level</h3>
+          <p id="spo2">-- %</p>
+        </div>
       </div>
     </section>
 
-    <section class="recommendation-section">
-      <h2>AI Recommendation</h2>
-      <div id="recommendation">Loading...</div>
+    <section id="ai-recommendations">
+      <h2>AI Health Recommendation</h2>
+      <p id="ai-suggestion">Awaiting data...</p>
     </section>
 
-    <section class="actions-section">
-      <button onclick="simulateVitals()">Simulate New Readings</button>
-      <button onclick="alert('Connecting to doctor...')">👩‍⚕ Connect to Doctor</button>
-      <button onclick="alert('Rewarding First Responder')">🏆 Reward First Responder</button>
+    <section id="extra-tools">
+      <div class="tab-buttons">
+        <button onclick="showTab('nutriscan')">NutriScan</button>
+        <button onclick="showTab('injuryscan')">InjuryScan</button>
+        <button onclick="showTab('vendor')">Vendor Access</button>
+        <button onclick="showTab('monitor')">Remote Monitor</button>
+      </div>
+
+      <div id="nutriscan" class="tab-content">
+        <h3>NutriScan AI</h3>
+        <p>Upload a food image or describe your meal to analyze nutrition and health impact.</p>
+      </div>
+
+      <div id="injuryscan" class="tab-content hidden">
+        <h3>InjuryScan</h3>
+        <p>Take or upload a skin injury photo to get first aid guidance and risk analysis.</p>
+      </div>
+
+      <div id="vendor" class="tab-content hidden">
+        <h3>Vendor Access</h3>
+        <p>Partner vendors and health responders can log in here to support your treatment journey.</p>
+      </div>
+
+      <div id="monitor" class="tab-content hidden">
+        <h3>Remote Monitoring</h3>
+        <p>Link this device with your doctor or caregiver for real-time monitoring via Firebase.</p>
+      </div>
     </section>
 
-    <footer>
-      <p>&copy; 2025 HealthSphere X. Empowering Health for All.</p>
-    </footer>
-  </div>
+    <section id="emergency">
+      <h2>Emergency Response</h2>
+      <button id="panic-btn" onclick="triggerEmergency()">🚨 Call First Responder</button>
+      <p id="emergency-status">Status: Normal</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 HealthSphere X. Built for resource-constrained communities with ❤️ and AI.</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>
 </html>
-
