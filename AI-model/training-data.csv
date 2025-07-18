@@ -1,0 +1,6 @@
+PatientID,Age,Temperature_C,Symptoms,Predicted_Illness,Suggested_Prevention,Recommended_Treatment
+1001,25,37.1,mild headache,Normal,"Stay hydrated, rest",None
+1002,70,39.2,"fever, cough, difficulty breathing",Pneumonia,"Isolate, consult doctor, stay warm","Antibiotics, oxygen support"
+1003,6,38.5,"fever, vomiting",Malaria,"Sleep under mosquito net, visit clinic",Antimalarials
+1004,34,36.8,fatigue,Fatigue,"Adequate rest, nutrition","Vitamin supplements, rest"
+1005,45,40.3,"high fever, chest pain",Severe Infection,"Emergency care, antibiotics","IV fluids, hospital admission"
