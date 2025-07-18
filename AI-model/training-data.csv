@@ -1,1 +1,8 @@
+| temperature | age | sex | history\_cvd | bp\_systolic | bp\_diastolic | hr  | spo2 | alert\_label |
+| ----------- | --- | --- | ------------ | ------------ | ------------- | --- | ---- | ------------ |
+| 36.7        | 24  | M   | 0            | 120          | 80            | 72  | 98   | Normal       |
+| 38.9        | 8   | F   | 0            | 115          | 75            | 110 | 95   | Fever        |
+| 35.5        | 67  | M   | 1            | 100          | 65            | 60  | 91   | Hypothermia  |
+| 39.5        | 50  | F   | 1            | 145          | 90            | 120 | 89   | SepsisRisk   |
+| 36.8        | 40  | M   | 1            | 140          | 95            | 100 | 93   | Hypertension |
 
