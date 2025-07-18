@@ -1,1 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HealthSphere X Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>HealthSphere X</h1>
+      <p>Your AI Doctor & Emergency Assistant</p>
+    </header>
+
+    <section class="vitals-section">
+      <h2>Live Vitals</h2>
+      <div class="vitals">
+        <div class="card"><strong>Body Temp:</strong> <span id="temp">-- °C</span></div>
+        <div class="card"><strong>Heart Rate:</strong> <span id="heart">-- bpm</span></div>
+        <div class="card"><strong>SpO2:</strong> <span id="spo2">-- %</span></div>
+        <div class="card"><strong>Blood Pressure:</strong> <span id="bp">-- mmHg</span></div>
+      </div>
+    </section>
+
+    <section class="recommendation-section">
+      <h2>AI Recommendation</h2>
+      <div id="recommendation">Loading...</div>
+    </section>
+
+    <section class="actions-section">
+      <button onclick="simulateVitals()">Simulate New Readings</button>
+      <button onclick="alert('Connecting to doctor...')">👩‍⚕ Connect to Doctor</button>
+      <button onclick="alert('Rewarding First Responder')">🏆 Reward First Responder</button>
+    </section>
+
+    <footer>
+      <p>&copy; 2025 HealthSphere X. Empowering Health for All.</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
 
