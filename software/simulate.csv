@@ -1,0 +1,6 @@
+temperature,age,history,condition,risk_factor,alert_level,recommendation
+36.5,25,none,Normal,None,Safe,Maintain healthy habits.
+38.3,70,hypertension,High Fever,Likely infection or flu | Underlying condition detected,Emergency,Seek medical attention immediately.
+39.5,10,asthma,High Fever,Likely infection or flu | Underlying condition detected,Emergency,Seek medical attention immediately.
+40.1,55,diabetes,Critical Fever,Possible severe infection or heatstroke | Underlying condition detected,Emergency,Seek medical attention immediately.
+37.8,35,none,Low-grade Fever,May indicate mild infection,Caution,Stay hydrated and rest.
