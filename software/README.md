@@ -1,50 +1,35 @@
-# HealthSphere X — Offline-First Predictive Health Monitoring
+# Software Folder – HealthSphere X
 
-**HealthSphere X** is a low-power AI-powered diagnostic device designed for rural and underserved areas. It runs on an ESP32 microcontroller, performs illness prediction locally, and logs vital data to an SD card — all without internet access.
+This folder contains all the core software components of the **HealthSphere X** prototype, designed for offline-first rural diagnostics powered by ESP32 and local AI prediction.
 
-## Features
-- 💡 Predicts illness severity based on temperature, age, and medical history
-- ⚡ Optimized for ESP32 with SD card logging (offline-first)
-- 🔐 Privacy-first: No cloud dependency
-- 🧠 AI model inference from local storage
-- 🧪 Simulation scripts for development/testing
-- 🌡️ Threshold logic for dynamic alerts
+## File Overview
 
----
+| File | Purpose |
+|------|---------|
+| `esp32_healthsphere.ino` | Embedded Arduino code for ESP32. Collects temperature data and logs predictions to SD card. No internet required. |
+| `predict.py` | AI-driven logic for predicting temperature-related health conditions using vitals and medical history. |
+| `thresholds.py` | Contains defined thresholds and logic ranges for interpreting temperature and risk levels. Used by `predict.py`. |
+| `simulate.py` | Runs simulated cases and generates prediction logs as a CSV file. |
+| `simulate.csv` | Output file from simulation — can be used for testing, training, or evaluation. |
+| `README.md` | This document. Describes purpose and links between all software files. |
+| `.keep` | (Optional) Keeps folder alive in Git if empty during init.
 
-## Project Structure
+## AI Integration
 
-| File | Description |
-|------|-------------|
-| `esp32_healthsphere.ino` | Core firmware for ESP32 (reads data, predicts, logs) |
-| `predict.py` | AI logic for illness condition prediction |
-| `thresholds.py` | Defines risk thresholds used in prediction |
-| `simulate.py` | Simulates multiple prediction cases for testing |
-| `prediction_log.json` | Auto-generated logs from local predictions |
-| `README.md` | Project overview and structure explanation |
+- The AI model is lightweight and runs **fully offline** on microcontrollers.
+- Predictions use hand-crafted rules via `predict.py`, suitable for embedded environments with low compute capacity.
+- Thresholds are easily modifiable via `thresholds.py`.
 
----
+## Simulation
 
-## Usage
+Run `simulate.py` to:
+- Validate AI predictions.
+- Export results to `simulate.csv`.
+- Test AI without hardware.
 
-### On ESP32
-- Flash `esp32_healthsphere.ino` via Arduino IDE
-- Ensure SD card is inserted for data logging
-- Input temperature and vitals via connected sensor
-- Device will:
-  1. Predict illness level
-  2. Store result in `prediction_log.json` (SD)
-  3. Display recommendation
+## Dependencies
 
-### On PC (for development)
-- Run `simulate.py` to generate test predictions
-- Adjust `thresholds.py` to test new logic
-- Analyze outputs using `prediction_log.json`
+Only Python standard libraries are used (no external packages). Compatible with Python 3.6+.
 
 ---
-
-## Simulation Example
-
-```bash
-python simulate.py
 
