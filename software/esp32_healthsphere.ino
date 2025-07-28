@@ -2,6 +2,7 @@
 #include <LiquidCrystal_I2C.h>
 #include <WiFi.h>
 #include "ESP_Mail_Client.h"
+#include <SD_MMC.h>
 
 // === LCD Config ===
 LiquidCrystal_I2C lcd(0x27, 20, 4); // SDA: GPIO14, SCL: GPIO15
@@ -55,6 +56,17 @@ Vitals predictVitals(float temp) {
   return vitals;
 }
 
+// === Save vitals to SD Card ===
+void saveToSD(Vitals vitals, float temp) {
+  File logFile = SD_MMC.open("/health_log.csv", FILE_APPEND);
+  if (logFile) {
+    logFile.printf("%.2f,%d/%d,%d,%d\n", temp, vitals.systolicBP, vitals.diastolicBP, vitals.spo2, vitals.heartRate);
+    logFile.close();
+  } else {
+    Serial.println("[SD] Failed to open file for writing");
+  }
+}
+
 // === Send Email Alert ===
 void sendEmailAlert(Vitals vitals, float temp) {
   SMTP_Message message;
@@ -89,18 +101,29 @@ void setup() {
   lcd.setCursor(0, 0);
   lcd.print("HealthSphere X");
 
+  // Init SD Card
+  if (!SD_MMC.begin()) {
+    Serial.println("[SD] Card Mount Failed");
+  } else {
+    Serial.println("[SD] Card mounted");
+  }
+
   // Connect WiFi
   WiFi.begin(ssid, password);
   lcd.setCursor(0, 1);
   lcd.print("Connecting WiFi...");
-  while (WiFi.status() != WL_CONNECTED) {
+  int retries = 0;
+  while (WiFi.status() != WL_CONNECTED && retries < 10) {
     delay(500);
     Serial.print(".");
+    retries++;
   }
-  lcd.setCursor(0, 2);
-  lcd.print("WiFi Connected");
+  bool internetAvailable = WiFi.status() == WL_CONNECTED;
 
-  // Predict vitals based on temperature
+  lcd.setCursor(0, 2);
+  lcd.print(internetAvailable ? "WiFi Connected" : "Offline Mode");
+
+  // Predict vitals
   Vitals vitals = predictVitals(bodyTemp);
 
   // Display on LCD
@@ -114,11 +137,18 @@ void setup() {
   lcd.setCursor(0, 3);
   lcd.print("HR: " + String(vitals.heartRate) + " bpm");
 
+  // Log to SD
+  saveToSD(vitals, bodyTemp);
+
   // Trigger alerts if vitals are abnormal
   if (vitals.spo2 < 93 || vitals.heartRate > 100 || vitals.systolicBP > 140) {
     digitalWrite(BUZZER_PIN, HIGH);
     digitalWrite(ALERT_LED_PIN, HIGH);
-    sendEmailAlert(vitals, bodyTemp);
+    if (internetAvailable) {
+      sendEmailAlert(vitals, bodyTemp);
+    } else {
+      Serial.println("[INFO] Alert saved to SD for offline mode");
+    }
     delay(5000);
     digitalWrite(BUZZER_PIN, LOW);
     digitalWrite(ALERT_LED_PIN, LOW);
@@ -130,4 +160,3 @@ void loop() {
   // In future: poll actual sensor values + camera feed
   delay(30000); // Wait before rechecking (simulate interval)
 }
-
