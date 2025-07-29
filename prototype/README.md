@@ -12,21 +12,21 @@ The prototype is built using a **transparent plastic food container** (rectangul
 - Adequate space for ESP32-CAM, sensors, and power modules
 - Transparency, aiding inspection and LED visibility
 
-Components are mounted using glue, adhesive pads, or tape. No 3D printing was used for this version.
+Components are secured using glue, adhesive pads, or double-sided tape. No 3D printing was used for this version.
 
 ---
 
 ## 🔧 Component Layout
 
-| Component              | Placement Description                      |
-|------------------------|---------------------------------------------|
-| **LCD Screen**         | Mounted on top of the container lid         |
-| **ESP32-CAM**          | Inside wall, outward-facing orientation     |
-| **MLX90614 IR Sensor** | On same side as camera, near the edge       |
-| **Buzzer**             | Rear end of the base                        |
-| **LED Bulbs**          | Front-facing for visual feedback            |
-| **Push Button**        | Side-mounted (near charging port)           |
-| **TP4056 Charger**     | Same side as button, externally accessible  |
+| Component        | Placement Description                      |
+|------------------|---------------------------------------------|
+| LCD Screen       | Mounted on top of the container lid         |
+| ESP32-CAM        | Inside wall, outward-facing orientation     |
+| MLX90614 IR Sensor | On same side as camera, near the edge     |
+| Buzzer           | Rear end of the base                        |
+| LED Bulbs        | Front-facing for visual feedback            |
+| Push Button      | Side-mounted (near charging port)           |
+| TP4056 Charger   | Same side as button, externally accessible  |
 
 Internal wiring is arranged to minimize clutter and reduce interference. Components are spaced to prevent heat buildup or shorting.
 
@@ -45,20 +45,21 @@ Internal wiring is arranged to minimize clutter and reduce interference. Compone
 
 ## 📁 Files in This Folder
 
-| File                 | Description |
-|----------------------|-------------|
-| [`layout-diagram.png`](layout-diagram.png) | Physical layout of internal components |
-| [`build-notes.md`](build-notes.md)         | Step-by-step instructions to replicate this prototype |
-| [`mockup-final.png`](../mockup-final.png)  | Final mockup design of the intended product |
-| [`version-notes.md`](version-notes.md)     | Log of build versions and hardware iterations |
+| File | Description |
+|------|-------------|
+| [`layout.md`](layout.md) | Description and link to internal wiring layout diagram |
+| [`build-notes.md`](build-notes.md) | Step-by-step instructions to replicate this prototype |
+| [`mockup-final.png`](../mockup-final.png) | AI-generated mockup of the intended device design |
+| [`version-notes.md`](version-notes.md) | Log of build versions and hardware iterations |
 
 ---
 
 ## 🧪 Known Limitations
 
-- Enclosure not waterproof or dustproof
+- Enclosure is not waterproof or dustproof
 - Manual mounting may result in slight component misalignment
 - Wiring may shift during transport without bracing or foam padding
+- No hardware protection from accidental reverse wiring or voltage spikes
 
 ---
 
@@ -68,5 +69,3 @@ Internal wiring is arranged to minimize clutter and reduce interference. Compone
 - Improve internal cable management
 - Optimize component placement for ergonomics
 - Integrate OLED or TFT touchscreen for expanded UX
-
----
