@@ -1,74 +1,65 @@
-# HealthSphere X AI Models
+# 🧠 HealthSphere X – AI Model
 
-The AI system powering **HealthSphere X** is designed around a three-pronged approach to community-centered healthcare:
+This folder contains the AI logic powering the offline diagnostic capabilities of HealthSphere X. The models support prediction of vital signs, early warning for illnesses, and basic care suggestions.
 
-> **Predict. Prevent. Prescribe.**
+## 🔗 Core AI Pipeline
 
----
+1. **Input**: Body temperature, age, gender, medical history
+2. **Predict Vitals**: AI model estimates SpO₂, heart rate, and blood pressure
+3. **Detect Conditions**: AI identifies abnormal patterns (e.g., fever, hypothermia)
+4. **Recommend Care**: Suggests basic home care or alerts for emergency help
 
-## 🔬 1. Predict
-HealthSphere X uses AI to infer vital signs (SpO₂, heart rate, blood pressure) from a simple temperature reading. This enables low-cost health monitoring even when only a digital thermometer is available.
-
-- Model: `temperature-vitals-model.ipynb`
-- Inputs: Body temperature (in °C), basic patient data (age, gender, history)
-- Outputs: Predicted vitals (SpO₂, Heart Rate, BP)
-
-Additionally, AI analyzes temperature trends to **predict potential illnesses** like:
-- Fever & Malaria
-- Hypothermia
-- COVID-19 patterns
-- Dengue-like symptoms
-
-- Model: `condition-predictor-model.ipynb`
+See `ai-logic-diagram.png` for the full logic flow.
 
 ---
 
-## 🚨 2. Prevent
-Using historical health patterns and thresholds, the models flag early warning signs:
+## 📂 File Structure
 
-- Fever trend detection
-- Dangerous vitals warning
-- Personalized risk profiles (based on age, history, etc.)
-
-This enables preventive steps before an emergency arises.
-
----
-
-## 💊 3. Prescribe
-Our AI module gives basic **prescription suggestions** when a doctor isn’t nearby:
-
-- Mild Fever → Paracetamol + Rest
-- Severe Fever → See doctor ASAP
-- Low SpO₂ → Urgent medical attention
-- Cold + Hypothermia → Apply warmth, hydrate
-
-- Model: `prescription-ai-module.ipynb`
-
-⚠️ Note: These are **suggestions**, not replacements for clinical diagnosis.
+| File                             | Purpose                                                      |
+|----------------------------------|--------------------------------------------------------------|
+| `predict.py`                     | Inference script using the trained models                    |
+| `train-model.py`                 | Main training pipeline using `training-data.csv`             |
+| `training-data.csv`             | Simulated dataset for temperature-vitals correlation         |
+| `temperature-vitals-model.ipynb`| Predict vitals from temperature + demographics               |
+| `condition-predictor-model.ipynb`| Identify illnesses from temperature trends                   |
+| `prescription-ai-module.ipynb`  | Provide basic prescription recommendations                   |
+| `model-architecture.md`         | Description of architecture used for each model              |
+| `model-usage-guide.md`          | Explains how to run and integrate the models on ESP32        |
+| `ai-logic-diagram.png`          | Visual schematic of AI logic pipeline                        |
 
 ---
 
-## 📁 Files Included
+## 🗃️ Model Overview
 
-| Filename | Description |
-|----------|-------------|
-| `temperature-vitals-model.ipynb` | Predicts vitals (HR, BP, SpO₂) from temperature |
-| `condition-predictor-model.ipynb` | Predicts illnesses based on temp patterns |
-| `prescription-ai-module.ipynb` | Gives basic suggestions for home care or escalation |
-| `readme.md` | This file |
+### 🔬 Vitals Prediction
+**Model**: `temperature-vitals-model.ipynb`  
+**Inputs**: Temperature, age, gender  
+**Outputs**: SpO₂, Heart Rate, Blood Pressure
 
 ---
 
-## 🧠 Dataset
-
-We used a combination of public medical references, anonymized simulations, and medically informed assumptions for training. Real data collection will improve performance over time.
-
----
-
-## ✅ Future Improvements
-- Integrate real patient history
-- Personalize models based on region or demographics
-- Expand to handle symptoms beyond temperature
+### 🚨 Condition Detection
+**Model**: `condition-predictor-model.ipynb`  
+**Purpose**: Predict possible fever, hypothermia, or infection patterns.
 
 ---
 
+### 💊 Home Care Recommendation
+**Model**: `prescription-ai-module.ipynb`  
+Provides home care advice (not medical-grade) based on symptoms detected.
+
+---
+
+## 🧪 Limitations
+
+- Models trained on simulated and generalized datasets
+- Not yet validated with real patient data
+- Only temperature-based — no wearable or biometric inputs
+
+---
+
+## ✅ Future Upgrades
+
+- Incorporate real-world patient datasets
+- Add symptom check via image/audio analysis
+- Optimize models for ESP32-CAM memory constraints
